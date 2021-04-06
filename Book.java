@@ -5,7 +5,7 @@ public class Book {
     private String[] title;
     private String[] author;
     private int[] pages;
-    private boolean[] isRent;
+    private boolean[] isRent= new boolean[]{false};
 
     //デフォルトコンストラクタ
     public Book(){
@@ -13,12 +13,18 @@ public class Book {
     }
 
     //パラメータ有コンストラクタ
-    public Book(String[] _title, String[] _author, int[] _pages, boolean[] _isRent){
+    public Book(String[] _title, String[] _author, int[] _pages){
         this.title = _title;
         this.author = _author;
-        this.pages = _pages;
-        this.isRent = _isRent;
+        this.pages = _pages;       
         
+        setDefaultisRent(title.length);
+    }
+    private void setDefaultisRent(int length){
+        for(int i = 0 ; i < length; i++){
+            this.isRent = new boolean[length];
+            this.isRent[i]=false;
+        }
     }
     
 
@@ -90,8 +96,7 @@ public class Book {
                         System.out.println("ステータス：貸出中");
                     }else{
                         System.out.println("ステータス：貸出可能");
-                    }
-                    
+                    }                    
                     break;
                 }
             }
@@ -107,8 +112,8 @@ public class Book {
                     System.out.println(
                     "タイトル：" + title[i]
                     + "\n作者：" + author[i]
-                    + "\nページ数" + pages[i]
-                    + "\n");
+                    + "\nページ数：" + pages[i]
+                    + "\nステータス：" + isRent[i]);
                     break;
                 }            
             }  
@@ -117,6 +122,24 @@ public class Book {
         }     
     }
 
+    public void rentBook(int index){
+        if(isRent[index]){
+            System.out.println("現在この本は貸出中です");
+        }else{
+            //ユーザー情報を取得して取得したユーザーのrentNumに++するコードを記述
+            //取得したユーザーのrentBookにbookのインデックス(int)を追加する
+            User user = new User();
+            int userIndex = user.getUserIndex(); 
+            System.out.println(userIndex);
+            // user.setRentNum(userRentNum, userIndex);
+
+            // isRent[index]=true;            
+            // System.out.println(title[index] + "を貸し出しました。");
+        }
+    }
+
+    //借りた本を返却するメソッドを記述
+    public void returnBook(){}
 
 }
 
