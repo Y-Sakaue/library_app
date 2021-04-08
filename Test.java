@@ -1,6 +1,6 @@
 package library_app;
-
 import java.util.Scanner;
+
 public class Test {
     public static void main(String[] args){
         Book bookList = new Book(
@@ -16,8 +16,8 @@ public class Test {
 
             User user = new User(new String[]{"勇次", "千晴"}, new String[]{"坂上","田中"}, new String[]{"y.sakaue","c.tanaka"}, new String[]{"Yuuji", "Chiharu"});
 
-          
-            user.printUserInfo();
+          user.printUserInfo();
+            
              
     }
 }
