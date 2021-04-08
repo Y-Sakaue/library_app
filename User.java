@@ -1,22 +1,22 @@
 package library_app;
 
-import java.util.Random;
+
 import java.util.Scanner;
 
 public class User {
     private String[] passWord;
-    private String[] userId;
+    String[] userId;
     private String[] userFirstName;
     private String[] userLastName;
 
     //本の貸し出し状況
     public int[] rentNum = new int[]{0};
-    private int[] rentBook;
     
     
 
 //空のコンストラクタ
 public User(){}
+
 
 //ユーザーの情報を登録するためのコンストラクタ
 //実装したい内容：ユーザー氏名, ID, PW,の登録　+ rentNum(貸出中の本数)の値の初期化(0を代入)
@@ -60,37 +60,42 @@ public User(){}
         obj.close();     
 
         for(; i < userFirstName.length; i++){
-            if(userId[i]==id && passWord[i] == pass){
+            if(userId[i].equals(id)&& passWord[i].equals(pass)){
                 result = i;
             }
         }        
         return result;
     }
+
+
+    
     // ユーザー情報をプリントする
     public void printUserInfo(){
         int i=0;
+        boolean idAndPassMatch = false;
 
         Scanner sc = new Scanner(System.in);
         System.out.print("ユーザーIDを入力：");
-        String id= sc.nextLine();
+        String id= sc.next();
 
         System.out.print("パスワードを入力：");
-        String pass= sc.nextLine();
-        
-        try{
-            for(; i < this.userId.length; i++){
-            
-                if(this.userId[i] == id && this.passWord[i]== pass ){
+        String pass= sc.next();
+        sc.close();
+                
+            for(; i < this.userId.length; i++){                
+                if(this.userId[i].equals(id) && this.passWord[i].equals(pass) ){
                     System.out.println("名前：" + userLastName[i] + " " + userFirstName[i] +
                                         "\n貸出中の本の数：" + getRentNum(i)+
-                                        "\n貸出可能な本の数：" + canRentNum(i));                
-                }else{System.out.println("実行されていません");}
+                                        "\n貸出可能な本の数：" + canRentNum(i));
+                    idAndPassMatch=true;
+                                        break;              
+                }
             }
-        }catch(IndexOutOfBoundsException e){
-            System.out.println("パスワード、又はIDが正しくありません。");
-        }
-        sc.close();        
+            if(!idAndPassMatch){
+                System.out.println("ユーザーIDまたはパスワードが正しくありません。");
+            }                    
     }
+
 
     public String getUserInfo(String _passWord, String _userId){
             String result="";
@@ -121,3 +126,4 @@ public User(){}
         return result;
     }
 }
+
