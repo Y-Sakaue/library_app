@@ -1,5 +1,7 @@
 package library_app;
 
+import java.util.Scanner;
+
 public class Book {
     //フィールド
     private String[] title;
@@ -23,6 +25,33 @@ public class Book {
             this.isRent = new boolean[length];
             this.isRent[i]=false;
         }
+    }
+    //本を検索し結果を出力するメソッド
+    public int searchByTitle(){
+        int i=0;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("本を検索：");
+        String search = sc.nextLine();
+        sc.close();
+        //TODO Scannerのnextメソッドがアルファベット以外に対応していないため日本語を入力すると文字化けする
+        try{
+            for(; i < title.length; i++){
+                if(this.title[i].contains(search)){
+                    System.out.println(
+                    "タイトル：" + title[i]
+                    + "|| 作者：" + author[i]
+                    + "|| ページ数" + pages[i]
+                    + "\n");
+                    if(isRent[i]){
+                        System.out.println("ステータス：貸出中");
+                    }else{
+                        System.out.println("ステータス：貸出可能");
+                    }                  
+                }else{System.out.println("search!=title[i]");}
+            }
+        }catch(IndexOutOfBoundsException e){System.out.println("お探しの本は見つかりませんでした。");}
+        return i;
     }
 
     //登録されたすべての本の情報を出力するメソッド

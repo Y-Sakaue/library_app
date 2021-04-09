@@ -30,13 +30,8 @@ public User(){}
         }
     }
 
-    //ユーザーの貸出本数を+1するメソッド
-    public int incrementUserRentNum(int userIndex){        
-        this.rentNum[userIndex] =+ getRentNum(userIndex);
-        return this.rentNum[userIndex];
-    }     
-    // ユーザー情報を出力するメソッド
-    public void printUserInfo(){
+    // ユーザー情報を出力してユーザーのインデックスを返すメソッド
+    public void logIn(){
         int i=0;
         boolean idAndPassMatch = false;
 
@@ -58,8 +53,22 @@ public User(){}
             }
             if(!idAndPassMatch){
                 System.out.println("ユーザーIDまたはパスワードが正しくありません。");
-            }                    
+            }
+            
+            if(getRentNum(i)<5){
+                System.out.println("本を検索：");
+                
+            }else{
+                System.out.println("これ以上本を借りることができません。");
+            }
+            
+            incrementUserRentNum(i);
     }
+    //ユーザーの貸出本数を+1するメソッド
+    private int incrementUserRentNum(int userIndex){        
+        this.rentNum[userIndex] =+ getRentNum(userIndex);
+        return this.rentNum[userIndex];
+    }         
     //貸出中の本の数を取得メソッド
     private int getRentNum(int index){
         return rentNum[index];
@@ -70,5 +79,6 @@ public User(){}
         if(rentNum[index] >= 5){result=0;}
         return result;
     }
+    //
 }
 
